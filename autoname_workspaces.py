@@ -96,13 +96,18 @@ WINDOW_ICONS = {
     'subl3': fa.icons['file-alt'],
     'sublime_text': fa.icons['file-alt'],
     'thunar': fa.icons['copy'],
-    'thunderbird': fa.icons['envelope'],
+    # 'thunderbird': fa.icons['envelope'],
     'totem': fa.icons['play'],
     'urxvt': fa.icons['terminal'],
     'xfce4-terminal': fa.icons['terminal'],
     'xournal': fa.icons['file-alt'],
     'yelp': fa.icons['code'],
     'zenity': fa.icons['window-maximize'],
+
+    'termite': '>_',
+    'jetbrains-pycharm': 'pycharm',
+    'thunderbird': 'thunderbird',
+    'vivaldi-stable': 'vivaldi'
 }
 
 # This icon is used for any application not in the list above
@@ -129,6 +134,7 @@ def icon_for_window(window):
             cls = cls.lower()  # case-insensitive matching
             if cls in WINDOW_ICONS:
                 return WINDOW_ICONS[cls]
+        return classes[1]
     logging.info(
         'No icon available for window with classes: %s' % str(classes))
     return DEFAULT_ICON
@@ -209,10 +215,12 @@ if __name__ == '__main__':
 
     rename_workspaces(i3)
 
+
     # Call rename_workspaces() for relevant window events
     def event_handler(i3, e):
         if e.change in ['new', 'close', 'move']:
             rename_workspaces(i3)
+
 
     i3.on('window', event_handler)
     i3.on('workspace::move', event_handler)
